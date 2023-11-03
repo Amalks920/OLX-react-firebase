@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import FormInput from "../components/FormInput";
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import UserContext from "../../utils/UserContext";
 
-const Login = () => {
+const Login = ({setAuthData,isAuthenticated}) => {
+  
+  const navigate=useNavigate()
   const [isSignup,setIsSignUp]=useState(false)
   const [errors,setErrors]=useState([])
   const name=useRef(null);
@@ -12,7 +14,11 @@ const Login = () => {
   const password=useRef(null);  
   
   const context=useContext(UserContext)
-  console.log(context)
+  if(isAuthenticated){
+    navigate('/home') 
+    window.location.reload(true)
+  }  
+
 
   function handleSignin(){
     setIsSignUp(!isSignup)
@@ -61,7 +67,7 @@ const Login = () => {
          marginTop={'mt-5'} width={'w-[90%]'}  marginX={'mx-5'}
          marginBottom={'mb-7'} paddingY={'py-2'} color={'bg-blue-400'}
          nameRef={name} emailRef={email} passwordRef={password}
-         errors={errors} setErrors={setErrors}
+         errors={errors} setErrors={setErrors} setAuthData={setAuthData}
           />
          </div>
 

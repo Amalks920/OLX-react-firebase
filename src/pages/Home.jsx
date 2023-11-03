@@ -1,8 +1,22 @@
 import React from 'react'
+import Header from '../components/Header'
+import { useNavigate } from 'react-router-dom'
 
-const Home = () => {
+const Home = ({setAuthData,isAuthenticated}) => {
+
+  const navigate=useNavigate()
+  console.log(isAuthenticated,'isAuthenticated')
+  if(isAuthenticated===false) {
+    navigate('/')
+    window.location.reload(true)
+ } 
+
   return (
-    <div>Home</div>
+    
+    <div>
+      <Header/>
+      Home
+    </div>
   )
 }
 

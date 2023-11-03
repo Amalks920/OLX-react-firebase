@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { validate } from "../../utils/validate";
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase";
+import UserContext from "../../utils/UserContext";
 
 const Button = ({
   border,
@@ -16,7 +17,10 @@ const Button = ({
   passwordRef,
   errors,
   setErrors,
+  setAuthData
 }) => {
+  const userData=useContext(UserContext)
+
   function handleSubmit() {
     console.log(nameRef, passwordRef, emailRef);
     const validations = validate(
@@ -40,6 +44,10 @@ const Button = ({
     
     const user = userCredential.user;
       console.log(user)
+      setAuthData(user)
+     
+      console.log(userData)
+
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -61,6 +69,7 @@ const Button = ({
           // Signed up
           const user = userCredential.user;
           console.log(user)
+          setAuthData(user)
         })
         .catch((error) => {
           const errorCode = error.code;

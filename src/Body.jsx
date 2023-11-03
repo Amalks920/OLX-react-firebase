@@ -1,14 +1,19 @@
 import React from 'react'
 import Login from './pages/Login'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import Home from './pages/Home'
 
 
-const Body = () => {
-
+const Body = ({setAuthData,isAuthenticated}) => {
+  console.log(isAuthenticated)
   const router=createBrowserRouter([
     {
         path:'/',
-        element:<Login/>
+        element:<Login setAuthData={setAuthData} isAuthenticated={isAuthenticated}/>
+    },
+    {
+      path:'/home',
+      element:<Home setAuthData={setAuthData} isAuthenticated={isAuthenticated}/>
     }
   ]) 
 

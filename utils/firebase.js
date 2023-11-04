@@ -7,7 +7,7 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyBCFKugMw2EKmO6URKLKHXPL1gTmNmypxY",
   authDomain: "olx-react-ffb51.firebaseapp.com",
   projectId: "olx-react-ffb51",
@@ -16,6 +16,8 @@ const firebaseConfig = {
   appId: "1:717302810745:web:480347ccab3698dd89eca8",
   measurementId: "G-R406WRB2NB"
 };
+
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

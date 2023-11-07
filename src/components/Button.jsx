@@ -17,7 +17,8 @@ const Button = ({
   passwordRef,
   errors,
   setErrors,
-  setAuthData
+  setAuthData,
+  setServerErrors
 }) => {
   const userData=useContext(UserContext)
 
@@ -29,6 +30,7 @@ const Button = ({
       passwordRef?.current?.value
     );
     setErrors(validations);
+    console.log(validations)
     if (
       validations[1] === true &&
       validations[2] === true &&
@@ -52,7 +54,7 @@ const Button = ({
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.log(error)
+    setServerErrors(errorMessage);
   });
 
     } else if (
@@ -74,7 +76,7 @@ const Button = ({
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          console.log(error)
+          setServerErrors(errorMessage);
         });
     }
   }

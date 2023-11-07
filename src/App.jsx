@@ -7,12 +7,19 @@ import Body from './Body'
 import UserContext from '../utils/UserContext'
 import { auth } from '../utils/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
+import PostContext from '../utils/PostContext'
+import { db } from '../utils/firestore'
+import { collection, getDocs } from 'firebase/firestore'
+
 
 
 function App() {
+ 
+ 
  const [authData,setAuthData]=useState([]);
  const [isAuthenticated,setIsAuthenticated]=useState(null)
-  console.log('rerender')
+ const [posts,setPosts]=useState([])
+
   useEffect(()=>{
   
     onAuthStateChanged(auth, (user) => {
@@ -21,16 +28,29 @@ function App() {
         setIsAuthenticated(true)
         //window.location.href='/home'
       } else {
-        console.log('hell')
         setAuthData(null)
         setIsAuthenticated(false)
       }
     });
   })
+
+  useEffect(()=>{
+    const colRef=collection(db,'posts');
+   
+    getDocs(colRef).then((snapshot)=>{
+      let posts=[]
+      snapshot.docs.forEach((doc)=>{
+        posts.push({...doc.data()})
+      })
+      setPosts(posts)
+    })
+  },[])
   return (
   <div>
   <UserContext.Provider value={{loggedInUser:authData}}>
+    <PostContext.Provider value={{posts:posts}}>
     <Body setAuthData={setAuthData} isAuthenticated={isAuthenticated}/>
+    </PostContext.Provider>
   </UserContext.Provider>
   </div>
   )

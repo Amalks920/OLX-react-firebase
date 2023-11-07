@@ -2,9 +2,10 @@
 margin: 0;
 padding: 0;
 border: 1px solid green;
-width: 100vw;
-height: fit-content;
+width: 99vw;
+min-height: 100vh;
 background-color: whitesmoke;
+overflow-y: hidden;
 }
 
 .logo {

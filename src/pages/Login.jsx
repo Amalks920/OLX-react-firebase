@@ -9,6 +9,7 @@ const Login = ({setAuthData,isAuthenticated}) => {
   const navigate=useNavigate()
   const [isSignup,setIsSignUp]=useState(false)
   const [errors,setErrors]=useState([])
+  const [serverErrors,setServerErrors]=useState('')
   const name=useRef(null);
   const email=useRef(null);
   const password=useRef(null);  
@@ -23,6 +24,8 @@ const Login = ({setAuthData,isAuthenticated}) => {
   function handleSignin(){
     setIsSignUp(!isSignup)
     setErrors([])
+    setServerErrors('')
+
   }
 
   return (
@@ -30,6 +33,7 @@ const Login = ({setAuthData,isAuthenticated}) => {
       className="bg-white flex
      justify-center items-center h-[100vh] rounded-md">
       <div className="bg-gray-300 max-[690px]:w-[90%]">
+        <h1 className="text-red-700 m-10 text-center">{serverErrors}</h1>
          <form onSubmit={(e)=>e.preventDefault()} action="" className="text-white  sm:m-8  text-3xl">
          <h1 className="font-bold ms-6 mt-6">{isSignup?"Signup":"Log in"}</h1>
 
@@ -64,17 +68,18 @@ const Login = ({setAuthData,isAuthenticated}) => {
 
          <div className="">
          <Button  border={'border-0'}
-         marginTop={'mt-5'} width={'w-[90%]'}  marginX={'mx-5'}
+         marginTop={'mt-5'} width={'w-[92%]'}  marginX={'mx-5'}
          marginBottom={'mb-7'} paddingY={'py-2'} color={'bg-blue-400'}
          nameRef={name} emailRef={email} passwordRef={password}
          errors={errors} setErrors={setErrors} setAuthData={setAuthData}
+         setServerErrors={setServerErrors}
           />
          </div>
 
          <p className="text-xl text-center">{isSignup?"Already have an account?":"Don't you have an Account?"}</p>
          <p onClick={()=>{
           handleSignin()
-         }} className="text-xl text-center text-blue-600 cursor-pointer">{isSignup?"Login":"Signup"}</p>
+         }} className="text-xl  text-center text-blue-600 cursor-pointer">{isSignup?"Login":"Signup"}</p>
          </form>
       </div>
     </div>
